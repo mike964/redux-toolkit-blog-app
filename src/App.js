@@ -1,3 +1,4 @@
+import React from 'react'
 import PostsList from './features/posts/PostsList'
 import AddPostForm from './features/posts/AddPostForm'
 import Layout from './components/Layout'
@@ -9,7 +10,15 @@ function App() {
 	return (
 		<Routes>
 			<Route path='/' element={<Layout />}>
-				<Route index element={<PostsList />} />
+				<Route
+					index
+					element={
+						<React.Fragment>
+							<AddPostForm />
+							<PostsList />
+						</React.Fragment>
+					}
+				/>
 
 				<Route path='post'>
 					<Route index element={<AddPostForm />} />

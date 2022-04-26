@@ -4,11 +4,15 @@ import axios from 'axios'
 
 const POSTS_URL = 'https://jsonplaceholder.typicode.com/posts'
 
-const initialState = {
-	posts: [],
-	status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
-	error: null,
-}
+const initialState = [
+	{ id: '1', title: 'First Post!', content: 'Hello!' },
+	{ id: '2', title: 'Second Post', content: 'More text' },
+]
+// const initialState = {
+// 	posts: [],
+// 	status: 'idle', //'idle' | 'loading' | 'succeeded' | 'failed'
+// 	error: null,
+// }
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
 	const response = await axios.get(POSTS_URL)
@@ -56,34 +60,36 @@ const postsSlice = createSlice({
 	initialState,
 	reducers: {
 		postAdded: {
+			// * action.type : posts/postAdded
 			reducer(state, action) {
-				state.posts.push(action.payload)
+				// state.posts.push(action.payload)
+				state.push(action.payload)
 			},
-			prepare(title, content, userId) {
-				return {
-					payload: {
-						id: nanoid(),
-						title,
-						content,
-						date: new Date().toISOString(),
-						userId,
-						reactions: {
-							thumbsUp: 0,
-							wow: 0,
-							heart: 0,
-							rocket: 0,
-							coffee: 0,
-						},
-					},
-				}
-			},
-		},
-		reactionAdded(state, action) {
-			const { postId, reaction } = action.payload
-			const existingPost = state.posts.find(post => post.id === postId)
-			if (existingPost) {
-				existingPost.reactions[reaction]++
-			}
+			// prepare(title, content, userId) {
+			// 	return {
+			// 		payload: {
+			// 			id: nanoid(),
+			// 			title,
+			// 			content,
+			// 			date: new Date().toISOString(),
+			// 			userId,
+			// 			reactions: {
+			// 				thumbsUp: 0,
+			// 				wow: 0,
+			// 				heart: 0,
+			// 				rocket: 0,
+			// 				coffee: 0,
+			// 			},
+			// 		},
+			// 	}
+			// },
+			// },
+			// reactionAdded(state, action) {
+			// 	const { postId, reaction } = action.payload
+			// 	const existingPost = state.posts.find(post => post.id === postId)
+			// 	if (existingPost) {
+			// 		existingPost.reactions[reaction]++
+			// 	}
 		},
 	},
 	extraReducers(builder) {
@@ -161,3 +167,7 @@ export const selectPostById = (state, postId) =>
 export const { postAdded, reactionAdded } = postsSlice.actions
 
 export default postsSlice.reducer
+
+/*
+- Don't try to mutate any data outside of createSlice!
+*/
