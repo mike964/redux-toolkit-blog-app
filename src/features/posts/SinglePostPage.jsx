@@ -15,7 +15,7 @@ const SinglePostPage = () => {
 
 	const post = useSelector(
 		// state => state.posts.posts.find(post => post.id === postId)
-		state => state.posts
+		state => state.posts.find(post => post.id === postId)
 		// console.log(state)
 	)
 	// const post = useSelector(state => selectPostById(state, Number(postId)))
