@@ -8,12 +8,14 @@ const reactionEmoji = {
 	heart: '❤️',
 	rocket: '🚀',
 	coffee: '☕',
+	hooray: '🎉',
+	eyes: '👀',
 }
 
 const ReactionBtns = ({ post }) => {
 	const dispatch = useDispatch()
 
-	const ReactionBtns = Object.entries(reactionEmoji).map(([name, emoji]) => {
+	const reactionBtns = Object.entries(reactionEmoji).map(([name, emoji]) => {
 		return (
 			<button
 				key={name}
@@ -27,7 +29,7 @@ const ReactionBtns = ({ post }) => {
 		)
 	})
 
-	return <div>{ReactionBtns}</div>
+	return <div>{reactionBtns}</div>
 }
 
 export default ReactionBtns

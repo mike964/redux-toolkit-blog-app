@@ -1,10 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useParams } from 'react-router-dom'
-// import PostAuthor from './PostAuthor'
+import PostAuthor from './PostAuthor'
 // import { selectPostById } from './postsSlice'
-// import ReactionBtns from './ReactionBtns'
-// import TimeAgo from './TimeAgo'
+import ReactionBtns from './ReactionBtns'
+import TimeAgo from './TimeAgo'
 
 // const SinglePostPage = ({ match }) => {
 // * No Need for match, use useParams() instead
@@ -35,11 +35,11 @@ const SinglePostPage = () => {
 				<h2>{post.title}</h2>
 				<p>{post.body}</p>
 				<p className='postCredit'>
-					{/* <Link to={`/post/edit/${post.id}`}>Edit Post</Link> */}
-					{/* <PostAuthor userId={post.userId} /> */}
-					{/* <TimeAgo timestamp={post.date} /> */}
+					<Link to={`/posts/edit/${post.id}`}>Edit Post</Link>
+					<PostAuthor userId={post.userId} />
+					<TimeAgo timestamp={post.date} />
 				</p>
-				{/* <ReactionBtns post={post} /> */}
+				<ReactionBtns post={post} />
 			</article>
 		</div>
 	)

@@ -1,16 +1,25 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectPostById, updatePost, deletePost } from './postsSlice'
+import {
+	// selectPostById,
+	// updatePost,
+	deletePost,
+	postUpdated,
+} from './postsSlice'
 import { useParams, useNavigate } from 'react-router-dom'
 
-import { selectAllUsers } from '../users/usersSlice'
+// import { selectAllUsers } from '../users/usersSlice'
 
 const EditPostForm = () => {
 	const { postId } = useParams()
 	const navigate = useNavigate()
 
-	const post = useSelector(state => selectPostById(state, Number(postId)))
-	const users = useSelector(selectAllUsers)
+	// const post = useSelector(state => selectPostById(state, Number(postId)))
+	const post = useSelector(state =>
+		state.posts.find(post => post.id === postId)
+	)
+	// const users = useSelector(selectAllUsers)
+	const users = useSelector(state => state.users)
 
 	const [title, setTitle] = useState(post?.title)
 	const [content, setContent] = useState(post?.body)
@@ -35,29 +44,30 @@ const EditPostForm = () => {
 		[title, content, userId].every(Boolean) && requestStatus === 'idle'
 
 	const onSavePostClicked = () => {
-		if (canSave) {
-			try {
-				setRequestStatus('pending')
-				dispatch(
-					updatePost({
-						id: post.id,
-						title,
-						body: content,
-						userId,
-						reactions: post.reactions,
-					})
-				).unwrap()
+		// if (canSave) {
+		// try {
+		setRequestStatus('pending')
+		dispatch(
+			postUpdated({
+				id: post.id,
+				title,
+				body: content,
+				// userId,
+				// reactions: post.reactions,
+			})
+		)
 
-				setTitle('')
-				setContent('')
-				setUserId('')
-				navigate(`/post/${postId}`)
-			} catch (err) {
-				console.error('Failed to save the post', err)
-			} finally {
-				setRequestStatus('idle')
-			}
-		}
+		setTitle('')
+		setContent('')
+		setUserId('')
+		// history.push(`/posts/${postId}`)
+		navigate(`/post/${postId}`)
+		// } catch (err) {
+		// 	console.error('Failed to save the post', err)
+		// } finally {
+		// 	setRequestStatus('idle')
+		// }
+		// }
 	}
 
 	const usersOptions = users.map(user => (
@@ -106,7 +116,10 @@ const EditPostForm = () => {
 					value={content}
 					onChange={onContentChanged}
 				/>
-				<button type='button' onClick={onSavePostClicked} disabled={!canSave}>
+				<button
+					type='button'
+					onClick={onSavePostClicked} //disabled={!canSave}
+				>
 					Save Post
 				</button>
 				<button
