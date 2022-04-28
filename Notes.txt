@@ -1,2 +1,4 @@
 # TODOS 
 ---------------------
+Make mock node api delay for a 2 seconds 
+Add logger to mock api

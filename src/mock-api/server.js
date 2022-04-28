@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
-const { sub } = require( 'date-fns' )
+const { sub } = require('date-fns')
 
 app.use(cors())
 app.use(bodyParser.json())
@@ -43,6 +43,7 @@ const posts = [
 ]
 
 app.get('/api/posts', (req, res) => {
+	console.log('Hello from api/posts')
 	res.json(posts)
 })
 
