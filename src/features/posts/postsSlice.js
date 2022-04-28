@@ -133,8 +133,14 @@ const postsSlice = createSlice({
 // export const getPostsStatus = state => state.posts.status
 // export const getPostsError = state => state.posts.error
 
-// export const selectPostById = (state, postId) =>
-// 	state.posts.posts.find(post => post.id === postId)
+/*
+- Use selector functions in order not to import useSlelector in all components 
+  to access store state
+*/
+export const selectAllPosts = state => state.posts
+
+export const selectPostById = (state, postId) =>
+	state.posts.find(post => post.id === postId)
 
 export const { postAdded, postUpdated, reactionAdded } = postsSlice.actions
 

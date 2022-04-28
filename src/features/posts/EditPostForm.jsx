@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import {
-	// selectPostById,
+	selectPostById,
 	// updatePost,
 	deletePost,
 	postUpdated,
@@ -15,9 +15,10 @@ const EditPostForm = () => {
 	const navigate = useNavigate()
 
 	// const post = useSelector(state => selectPostById(state, Number(postId)))
-	const post = useSelector(state =>
-		state.posts.find(post => post.id === postId)
-	)
+	// const post = useSelector(state =>
+	// 	state.posts.find(post => post.id === postId)
+	// )
+	const post = useSelector(state => selectPostById(state, postId))
 	// const users = useSelector(selectAllUsers)
 	const users = useSelector(state => state.users)
 

@@ -12,7 +12,8 @@ import { Link } from 'react-router-dom'
 const PostsList = () => {
 	// const dispatch = useDispatch()
 
-	const posts = useSelector(state => state.posts)
+	// const posts = useSelector(state => state.posts)
+	const posts = useSelector(selectAllPosts)
 
 	// Sort posts in reverse chronological order by datetime string
 	const orderedPosts = posts
