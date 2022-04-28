@@ -10,10 +10,19 @@ import PostsExcerpt from './PostsExcerpt'
 import { Link } from 'react-router-dom'
 
 const PostsList = () => {
-	// const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
 	// const posts = useSelector(state => state.posts)
 	const posts = useSelector(selectAllPosts)
+
+	const postStatus = useSelector(state => state.posts.status)
+
+	useEffect(() => {
+		// prevent fetching the posts several times
+		if (postStatus === 'idle') {
+			dispatch(fetchPosts())
+		}
+	}, [postStatus, dispatch])
 
 	// Sort posts in reverse chronological order by datetime string
 	const orderedPosts = posts
