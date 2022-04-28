@@ -44,7 +44,9 @@ const posts = [
 
 app.get('/api/posts', (req, res) => {
 	console.log('Hello from api/posts')
-	res.json(posts)
+	setTimeout(() => {
+		res.json(posts)
+	}, 2000)
 })
 
 app.post('/api/posts', (req, res) => {
