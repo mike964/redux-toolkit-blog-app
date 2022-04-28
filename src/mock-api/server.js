@@ -2,31 +2,60 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const { sub } = require( 'date-fns' )
 
 app.use(cors())
 app.use(bodyParser.json())
 
-const bugs = [
-	{ id: 1, description: 'Bug 1', userId: 1, resolved: true },
-	{ id: 2, description: 'Bug 2', userId: 1 },
-	{ id: 3, description: 'Bug 3', userId: 2 },
-	{ id: 4, description: 'Bug 4' },
+const posts = [
+	{
+		id: '1',
+		title: 'First Post!',
+		content: 'Hello!',
+		user: '0',
+		date: sub(new Date(), { minutes: 10 }).toISOString(),
+		reactions: {
+			thumbsUp: 0,
+			hooray: 0,
+			heart: 0,
+			rocket: 0,
+			eyes: 0,
+			wow: 0,
+			coffee: 0,
+		},
+	},
+	{
+		id: '2',
+		title: 'Second Post',
+		content: 'More text',
+		user: '2',
+		date: sub(new Date(), { minutes: 5 }).toISOString(),
+		reactions: {
+			thumbsUp: 0,
+			hooray: 0,
+			heart: 0,
+			rocket: 0,
+			eyes: 0,
+			wow: 0,
+			coffee: 0,
+		},
+	},
 ]
 
-app.get('/api/bugs', (req, res) => {
-	res.json(bugs)
+app.get('/api/posts', (req, res) => {
+	res.json(posts)
 })
 
-app.post('/api/bugs', (req, res) => {
+app.post('/api/posts', (req, res) => {
 	const bug = { id: Date.now(), resolved: false, ...req.body }
-	bugs.push(bug)
+	posts.push(bug)
 
 	res.json(bug)
 })
 
-app.patch('/api/bugs/:id', (req, res) => {
-	const index = bugs.findIndex(bug => bug.id === parseInt(req.params.id))
-	const bug = bugs[index]
+app.patch('/api/posts/:id', (req, res) => {
+	const index = posts.findIndex(bug => bug.id === parseInt(req.params.id))
+	const bug = posts[index]
 	if ('resolved' in req.body) bug.resolved = req.body.resolved
 	if ('userId' in req.body) bug.userId = req.body.userId
 
