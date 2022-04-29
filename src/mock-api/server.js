@@ -42,11 +42,23 @@ const posts = [
 	},
 ]
 
+const users = [
+	{ id: '0', name: 'Tianna Jenkins' },
+	{ id: '1', name: 'Kevin Grant' },
+	{ id: '2', name: 'Madison Price' },
+]
+
 app.get('/api/posts', (req, res) => {
 	console.log('Hello from api/posts')
 	setTimeout(() => {
 		res.json(posts)
 	}, 2000)
+})
+
+app.get('/api/users', (req, res) => {
+	setTimeout(() => {
+		res.json(users)
+	}, 1500)
 })
 
 app.post('/api/posts', (req, res) => {
