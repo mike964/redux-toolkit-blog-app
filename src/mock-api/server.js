@@ -62,7 +62,20 @@ app.get('/api/users', (req, res) => {
 })
 
 app.post('/api/posts', (req, res) => {
-	const bug = { id: Date.now(), resolved: false, ...req.body }
+	const bug = {
+		id: `${Date.now()}`,
+		date: sub(new Date(), { minutes: 5 }).toISOString(),
+		reactions: {
+			thumbsUp: 0,
+			hooray: 0,
+			heart: 0,
+			rocket: 0,
+			eyes: 0,
+			wow: 0,
+			coffee: 0,
+		},
+		...req.body, // {title, content, user}
+	}
 	posts.push(bug)
 
 	res.json(bug)

@@ -27,7 +27,9 @@ a Promise containing some data, or a rejected Promise with an error
 export const addNewPost = createAsyncThunk(
 	'posts/addNewPost',
 	async initialPost => {
-		const response = await axios.post(POSTS_URL, initialPost)
+		// We send the initial data to the fake API server
+		const response = await axios.post('/api/posts', initialPost)
+		// The response includes the complete post object, including unique ID
 		return response.data
 	}
 )
@@ -131,6 +133,10 @@ const postsSlice = createSlice({
 			.addCase(fetchPosts.rejected, (state, action) => {
 				state.status = 'failed'
 				state.error = action.error.message
+			})
+			.addCase(addNewPost.fulfilled, (state, action) => {
+				// We can directly add the new post object to our posts array
+				state.posts.push(action.payload)
 			})
 	},
 })
